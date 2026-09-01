@@ -1,0 +1,106 @@
+Use your Unix skills to search for the adapter sequences in your datasets and confirm the expected sequence orientations
+
+
+My first hypothesis is that the _1.fastq files contain the R1 adapter in their sequences and the _2.fastq files contain the R2
+adapter in their sequences. 
+
+I will test this by grepping for the R1 adapter in both the CcoxCrh_comrhy62_EO_6cm_1_1.fastq and 
+CcoxCrh_comrhy62_EO_6cm_1_2.fastq files.
+
+Is the R1 adapter in the CcoxCrh_comrhy62_EO_6cm_1_1.fastq file?
+grep "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" CcoxCrh_comrhy62_EO_6cm_1_1.fastq | wc -l
+
+Output: 358878
+
+Yes, the R1 adapter is present in the CcoxCrh_comrhy62_EO_6cm_1_1.fastq file
+
+
+Is the R2 adapter in the CcoxCrh_comrhy62_EO_6cm_1_1.fastq file?
+grep "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" CcoxCrh_comrhy62_EO_6cm_1_1.fastq | wc -l
+
+Output: 0
+
+No, the R2 adapter is not present in the CcoxCrh_comrhy62_EO_6cm_1_1.fastq file
+
+
+Is the R1 adapter in the CcoxCrh_comrhy62_EO_6cm_1_2.fastq file?
+grep "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" CcoxCrh_comrhy62_EO_6cm_1_2.fastq | wc -l
+
+Output: 0
+
+No, the R1 adapter is not present in the CcoxCrh_comrhy62_EO_6cm_1_2.fastq file
+
+Is the R2 adapter in the in the CcoxCrh_comrhy62_EO_6cm_1_2.fastq file?
+grep "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" CcoxCrh_comrhy62_EO_6cm_1_2.fastq | wc -l
+
+Output: 363837
+
+Yes, the R2 adapter is present in the CcoxCrh_comrhy62_EO_6cm_1_2.fastq file
+
+
+My hypothesis was correct! The _1.fastq files contain the R1 adapter, and the _2.fastq files contain the R2 adapter.
+
+
+
+Now I will check if the R1 adapter contains the 
+
+
+
+
+
+
+I will first check to see how many reads have the adapter sequences at the start of their sequence:
+
+grep "^AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" CcoxCrh_comrhy62_EO_6cm_1_1.fastq | wc -l
+This command checks how many lines of the fastq file begin with the R1 adapter sequence, so it will report back how many
+records have that adapter at the start of their sequence.
+
+I got 0, so the R1 adapter is not present at the beginning of the CcoxCrh_comrhy62_EO_6cm_1_1.fastq reads.
+
+I am questioning whether my assumption that the _1.fastq files will have the R1 adapter is correct, maybe the 
+CcoxCrh_comrhy62_EO_6cm_1_1.fastq file does have an adapter at the beginning of its sequences, it's just the R2 adapter and 
+not the R1 adapter. So I will check just to make sure:
+
+grep "^AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" CcoxCrh_comrhy62_EO_6cm_1_1.fastq | wc -l
+
+I also got 0, so I think the CcoxCrh_comrhy62_EO_6cm_1 files just don't have adapters at the beginning of their sequences.
+
+
+I'm going to check for adapters at the end of the sequence line now
+
+grep "AGATCGGAAGAGCACACGTCTGAACTCCAGTCA$" CcoxCrh_comrhy62_EO_6cm_1_1.fastq | wc -l
+This command checks how many lines of the fastq file end with the R1 adapter sequence, so it will report back how many records
+have that adapter at the end of their sequence.
+
+I got 27128, so I believe the CcoxCrh_comrhy62_EO_6cm_1_1.fastq file has 3' adapters, or adapters at the end of its sequences.
+
+
+grep "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT$" CcoxCrh_comrhy62_EO_6cm_1_2.fastq | wc -l
+This command checks how many lines of the fastq file end with the R2 adapter sequence, so it will report back how many records
+have that adapter at the end of their sequence.
+
+I got 26866, so I believe the CcoxCrh_comrhy62_EO_6cm_1_2.fastq file has 3' adapters, or adapters at the end of its sequences.
+
+
+grep "^AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" CcoxCrh_comrhy62_EO_6cm_1_2.fastq | wc -l
+This command checks how many lines of the fastq file start with the R2 adapter sequence.
+
+I got 0, so I believe the CcoxCrh_comrhy62_EO_6cm_1_2.fastq does not have 5' adapters.
+
+Now I will check the CcoxCrh_comrhy111_EO_adult_2 files to see if they have adapters at the beginning or ends of their sequences
+(or neither).
+
+Let's first check if they have the adapter at the beginning of their sequences:
+
+grep "^AGATCGGAAGAGCACACGTCTGAACTCCAGTCA" CcoxCrh_comrhy111_EO_adult_2_1.fastq | wc -l
+This command checks how many lines of the fastq file begin with the R1 adapter sequence, so it will report back how many
+records have that adapter at the start of their sequence.
+
+I got 153, so I believe the R1 adapter is a 3' adapter for the the CcoxCrh_comrhy111_EO_adult_2_1.fastq reads.
+
+
+grep "^AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT" CcoxCrh_comrhy111_EO_adult_2_2.fastq | wc -l
+This command checks how many lines of the fastq file begin with the R1 adapter sequence.
+
+I got 64, so I believe the R1 adapter is a 3' adapter for the CcoxCrh_comrhy111_EO_adult_2_2.fastq file.
+
