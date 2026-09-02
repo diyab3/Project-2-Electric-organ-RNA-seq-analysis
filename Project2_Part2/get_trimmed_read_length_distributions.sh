@@ -9,7 +9,7 @@
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=350G
 
-infile="CcoxCrh_comrhy62_EO_6cm_1_2_trimmed.fastq.gz"
+infile="CcoxCrh_comrhy111_EO_adult_2_1_trimmed.fastq.gz"
 outfile="CcoxCrh_comrhy62_EO_6cm_1_2_trimmed_read_length_dist.txt"
 
-zcat $infile | grep --no-group-separator -B 1 "+" | grep -v "+" | awk '{print(length($0))}' | sort| uniq -c |sort > $outfile
+/usr/bin/time -v zcat $infile | grep --no-group-separator -B 1 "+" | grep -v "+" | awk '{print(length($0))}' | sort| uniq -c |sort > $outfile
