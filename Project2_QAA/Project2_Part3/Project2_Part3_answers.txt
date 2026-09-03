@@ -1,3 +1,14 @@
+BASH SCRIPTS USED FOR THIS PART:
+
+align_reads.sh  # using STAR to align the reads
+convert_gff_to_gtf.sh  # using agat to convert the gff file to gtf file
+count_reads_mapping_to_features.sh  # using htseq-count to count the number of reads from my alignment that map to 
+count reads mapping to features
+create_genome_database.sh  # using STAR to create a genome database for alignment
+get_mapped_and_unmapped_reads.sh  # using the python script I created from Bi621 PS8 to count the number of mapped and unmapped
+                                    reads from my alignment output files
+sum_read_counts.sh  # a bash command to get the total number of reads mapped from my htseq output files, both reverse and forward 
+
 Using your script from PS8 in Bi621, report the number of mapped and unmapped reads from each of your 2 SAM files.
 
 CcoxCrh_comrhy62_EO_6cm_1 sam file:
@@ -7,3 +18,24 @@ Number unmapped reads: 4473461
 CcoxCrh_comrhy111_EO_adult_2 sam file:
 Number mapped reads: 61634084
 Number unmapped reads: 3431208
+
+Demonstrate convincingly whether or not the data are from “strand-specific” RNA-Seq libraries and which stranded= parameter 
+should you use for counting your reads for a future differential gene expression analyses. Include any commands/scripts used. 
+Briefly describe your evidence, using quantitative statements (e.g. “I propose that these data are/are not strand-specific, 
+because X% of the reads are y, as opposed to z.”).
+
+Bash script used:
+sum_read_counts.sh
+
+CcoxCrh_comrhy62_EO_6cm_1:
+
+
+I propose that these data are strand-specific and the stranded=reverse parameter should be used because the kit used for libary prep is strand-specific and 29070441 reads were 
+generated from the --stranded=reverse run, while only 1528014 reads were generated from the --stranded=yes run. 
+
+
+CcoxCrh_comrhy111_EO_adult_2:
+
+
+I propose that these data are strand-specific and the stranded=reverse parameter should be used because the kit used for library prep is strand-specific and 16529494 reads were 
+generated from the --stranded=reverse run, while only 863984 reads were generated from the --stranded=yes run. 
