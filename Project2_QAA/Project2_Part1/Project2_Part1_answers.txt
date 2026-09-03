@@ -1,0 +1,52 @@
+QUALITY REPORT (ANSWERS TO QUESTIONS)
+
+All of my data was Illumina sequencing. 0 sequences were flagged as poor quality. All data had high per base quality in general, and a high average quality per read.
+
+All of the data had bad per base sequence content but that is likely due to adapters which can be trimmed in the future.
+
+All the data seemed to have fairly normal GC content.
+
+There were basically no Ns in any of the data, yay!
+
+There were problems with sequence duplication level, it was flagged as bad in every file, but FastQC was not created for RNA, so I am guessing higher duplication levels indicates that certain genes are being expressed more and this hopefully should not be an issue. 
+
+CcoxCrh_comrhy111_EO_adult_2 does appear to be predicting Illumina Universal Adapter, while no adapter is being predicted for CcoxCrh_comrhy62_EO_6cm_1.
+
+Due to all of this, I think my data is of high enough quality to use for further analysis.
+
+
+BASH CODE USED
+
+Created a new environment with PIXI called `Project2_QAA` and install `FastQC`, `cutadapt`, and `Trimmomatic`:
+
+```{bash}
+pixi init Project2_QAA
+pixi add fastqc cutadapt trimmomatic
+```
+
+
+Downloaded my assigned files:
+
+```{bash}
+prefetch SRR25630295
+prefetch SRR25630383
+```
+
+Extracted fastq files from my downloaded files:
+
+```{bash}
+fasterq-dump SRR25630295
+fasterq-dump SRR25630383
+```
+
+
+In a pixi shell:
+
+
+Used FastQC to produce plots of the per-base quality score distributions for R1 and R2 reads:
+
+```{bash}
+fastqc SRR25630295_1.fastq
+fastqc SRR25630295_2.fastq -o .
+fastqc SRR25630383*.fastq -o .
+```
