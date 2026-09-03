@@ -1,0 +1,9 @@
+Using your script from PS8 in Bi621, report the number of mapped and unmapped reads from each of your 2 SAM files.
+
+CcoxCrh_comrhy62_EO_6cm_1 sam file:
+Number mapped reads: 97093695
+Number unmapped reads: 4473461
+
+CcoxCrh_comrhy111_EO_adult_2 sam file:
+Number mapped reads: 61634084
+Number unmapped reads: 3431208
